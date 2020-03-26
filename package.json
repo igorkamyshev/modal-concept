@@ -27,6 +27,7 @@
     "access": "public"
   },
   "scripts": {
+    "build": "parcel build demo/index.html",
     "dev": "parcel demo/index.html",
     "s": "yarn soda"
   }
