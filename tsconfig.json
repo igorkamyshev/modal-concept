@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "lib": ["DOM", "es2017", "es2019"],
+    "jsx": "react",
+    "module": "commonjs",
+    "declaration": false,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "skipLibCheck": true,
+    "strictPropertyInitialization": true,
+    "sourceMap": false,
+    "removeComments": true,
+    "strictBindCallApply": true,
+    "noLib": false,
+    "esModuleInterop": true,
+    "target": "es6",
+    "outDir": "./dist",
+    "baseUrl": ".",
+    "paths": {
+      "&lib/*": ["./lib/*"]
+    }
+  },
+  "include": ["src/**/*", "demo/**/*"],
+  "exclude": ["node_modules"]
+}

@@ -1,0 +1,33 @@
+{
+  "name": "modal-concept",
+  "version": "1.0.0",
+  "alias": {
+    "&lib": "./lib"
+  },
+  "dependencies": {
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
+  "devDependencies": {
+    "@solid-soda/scripts": "^1.19.1",
+    "@types/react": "^16.9.25",
+    "@types/react-dom": "^16.9.5",
+    "parcel-bundler": "^1.12.4",
+    "typescript": "^3.8.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn soda lint-staged",
+      "pre-push": "yarn soda lint",
+      "commit-msg": "yarn soda commitlint"
+    }
+  },
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "dev": "parcel demo/index.html",
+    "s": "yarn soda"
+  }
+}
