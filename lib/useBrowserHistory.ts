@@ -1,39 +1,24 @@
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
+
+const hasHistoryIn = (target: any) => (name: string): boolean =>
+  target.state && target.state[name];
+const hasHistoryInWindow = hasHistoryIn(window.history);
 
 export const useBrowserHistory = (
   name: string,
-  isOpen: boolean,
-  onBack?: () => void,
-  onForward?: () => void,
+  onBack: () => void,
+  onForward: () => void,
 ) => {
-  const handleBack = () => {
-    if (window.history.state && window.history.state[name]) {
+  const handleBack = useCallback(() => {
+    if (hasHistoryInWindow(name)) {
       window.history.go(-1);
     }
 
-    if (onBack) {
-      onBack();
-    }
-  };
+    onBack();
+  }, [onBack, name]);
 
-  const handleForward = () => {
-    if (onForward) {
-      onForward();
-    }
-  };
-
-  const handlePopState = (event: PopStateEvent) => {
-    if (!event.state || !event.state[name]) {
-      handleBack();
-    } else {
-      handleForward();
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener('popstate', handlePopState);
-
-    if (isOpen && (!window.history.state || !window.history.state[name])) {
+  const handleForward = useCallback(() => {
+    if (!hasHistoryInWindow(name)) {
       window.history.pushState(
         {
           ...window.history.state,
@@ -43,10 +28,24 @@ export const useBrowserHistory = (
       );
     }
 
+    onForward();
+  }, [onForward, name]);
+
+  useEffect(() => {
+    const handlePopState = (event: PopStateEvent) => {
+      if (hasHistoryIn(event)(name)) {
+        handleForward();
+      } else {
+        handleBack();
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+
     return () => {
       window.removeEventListener('popstate', handlePopState);
     };
-  }, [isOpen]);
+  }, [handleBack, handleForward, name]);
 
   return { handleBack, handleForward };
 };

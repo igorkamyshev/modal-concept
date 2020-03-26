@@ -9,7 +9,6 @@ export const useModal = (name: string) => {
 
   const { handleForward: open, handleBack: close } = useBrowserHistory(
     name,
-    isOpen,
     () => setIsOpen(false),
     () => setIsOpen(true),
   );
