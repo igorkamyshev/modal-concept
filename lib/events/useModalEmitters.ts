@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 
 import { emitCloseModal, emitInitModal, emitOpenModal } from './emitters';
 
-export const useModalEvents = (name: string, isOpen: boolean) => {
+export const useModalEmitters = (name: string, isOpen: boolean) => {
   const initedRef = useRef(false);
 
   useEffect(() => {
